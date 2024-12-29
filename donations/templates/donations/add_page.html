@@ -1,0 +1,42 @@
+{% extends "base/base.html" %}
+
+{% load static %}
+{% load form_tag_utils %}
+
+{% block title %} 
+    {{title}} 
+{% endblock title %}
+
+{% block body %}
+<div class="w-full  flex justify-center">
+    <div class="mt-5 shadow-lg rounded min-w-[50%] p-3 bg-card-100 ">
+        <h1>{{title}}</h1>
+        <form action="{% if action %}{{action }} {% else %}./{% endif %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            {% for field in form %}
+            <div class="w-full mt-1">
+
+                <label for="{{field.id_for_label}}">{{ field.label }} {% if field.field.required %}
+                    *
+                    {% endif %}</label>
+                <small class="text-red-500">{{ field.errors }}</small>
+                {% if field.widget_type == "checkbox" %}
+                {% input_tag field class="p-1 focus:border-black border-2 rounded-lg " %}
+                {% else %}
+                {% input_tag field class="p-1 focus:border-black border-2 rounded-lg w-full " %}
+                {% endif %}
+            </div>
+            {% endfor %}
+
+            <input
+                class="cursor-pointer w-full float-right md:col-span-2 hover:bg-button-200 bg-button-100 py-2 rounded  mt-5 text-white "
+                type="submit" value="Add">
+        </form>
+    </div>
+</div>
+
+{% endblock body %}
+
+{% block script %}
+{% endblock script %}

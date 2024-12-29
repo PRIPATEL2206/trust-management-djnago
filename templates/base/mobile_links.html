@@ -1,0 +1,22 @@
+{% if user.is_authenticated %}
+
+<!-- Current: "bg-primary-900 text-white", Default: "text-gray-300 hover:bg-primary-700 hover:text-white" -->
+<a href="/" class="block rounded-md hover:bg-primary-700 text-white px-3 py-2 text-base font-medium  {% if request.resolver_match.url_name == 'home' %} bg-primary-900  {% endif %}"
+aria-current="page">Dashboard</a>
+<a href="{% url 'donations_types' %}"
+  class="block rounded-md px-3 py-2 text-base font-medium  hover:bg-primary-700 text-white  {% if request.resolver_match.url_name == 'donations_types' %} bg-primary-900  {% endif %}">Donations</a>
+<a href="{% url 'add_donation_types' %}"
+  class="block rounded-md px-3 py-2 text-base font-medium  hover:bg-primary-700 text-white  {% if request.resolver_match.url_name == 'add_donation_types' %} bg-primary-900  {% endif %}">Add
+  Donation Type</a>
+<a href="{% url 'add_donation' %}"
+  class="block rounded-md px-3 py-2 text-base font-medium  hover:bg-primary-700 text-white  {% if request.resolver_match.url_name == 'add_donation' %} bg-primary-900  {% endif %}">AddDonation</a>
+<a href="#"
+  class="block rounded-md px-3 py-2 text-base font-medium  hover:bg-primary-700 text-white  {% if request.resolver_match.url_name == '#' %} bg-primary-900  {% endif %}">Calendar</a>
+{% else %}
+
+<a href="{% url 'auth_login' %}"
+  class="block rounded-md px-3 py-2 {% if request.resolver_match.url_name == 'auth_login' %} bg-primary-900  {% else %} text-white hover:bg-primary-700 hover:text-white {% endif %} text-base font-medium ">Login</a>
+<a href="{% url 'auth_register' %}"
+  class="block rounded-md px-3 py-2 text-base font-medium  {% if request.resolver_match.url_name == 'auth_register' %} bg-primary-900  {% else %} text-white hover:bg-primary-700 hover:text-white {% endif %}">Register</a>
+{% endif %}
+

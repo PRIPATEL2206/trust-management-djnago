@@ -1,0 +1,50 @@
+{% extends "base/base.html" %}
+
+{% load static %}
+
+{% block title %} Profile {% endblock title %}
+
+{% block body %}
+<div class="w-full flex justify-center">
+        <div class="lg:w-1/2 m-3 bg-card-100 shadow-lg p-4 rounded mt-10">
+
+
+                <div class="flex items-center flex-col mb-2">
+                        <div class="cursor-pointer relative rounded-[50%] overflow-clip ">
+                                <div id="edit_avatar"
+                                        class="absolute flex opacity-0 transition-opacity ease-in hover:opacity-100  w-full h-full text-center content-center justify-center font-bold p-2 bg-gray-700 bg-opacity-10 ">
+                                        <p class=" content-center">
+                                                <svg xmlns="http://www.w3.org/2000/svg" x="20px" y="0px"
+                                                        width="40" height="40" viewBox="0 0 30 30">
+                                                        <path
+                                                                d="M24 11l2.414-2.414c.781-.781.781-2.047 0-2.828l-2.172-2.172c-.781-.781-2.047-.781-2.828 0L19 6 24 11zM17 8L5.26 19.74C7.886 19.427 6.03 21.933 7 23c.854.939 3.529-.732 3.26 1.74L22 13 17 8zM4.328 26.944l-.015-.007c-.605.214-1.527-.265-1.25-1.25l-.007-.015L4 23l3 3L4.328 26.944z">
+                                                        </path>
+                                                </svg></p>
+                                </div>
+                                <img id="avatar_show" class="w-[min(20vw,20vh)] h-[min(20vw,20vh)]  "
+                                        src="{{ user.profile.get_avatar_url }}" alt="">
+                        </div>
+                        <small id="username_show" class="font-semibold">@{{ user.username }}</small>
+                </div>
+
+                <form action='{% url "auth_profile" %}' class="grid gap-3" method="post" id="profile_form"
+                        enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {% for field in form %}
+                        <div class="{% if forloop.counter == 1 %}hidden{% endif %}">
+                                <label for="{{field.id_for_label}}">{{ field.label }}</label>
+                                <small class="text-red-500">{{ field.errors }}</small>
+                                {{ field }}
+                        </div>
+                        {% endfor %}
+                        <input class="cursor-pointer float-right md:col-span-2 hover:bg-button-200 bg-button-100 py-2 rounded  mt-5 text-white "
+                                type="submit" value="Save">
+                </form>
+        </div>
+</div>
+
+{% endblock body %}
+
+{% block script %}
+<script src="{% static 'js/profile_page_script.js' %}"></script>
+{% endblock script %}

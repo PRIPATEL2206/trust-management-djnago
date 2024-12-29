@@ -1,0 +1,1 @@
+# This is django app for trust management online 
